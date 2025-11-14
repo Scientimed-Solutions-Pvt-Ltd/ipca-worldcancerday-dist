@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Routing Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .test-link { display: block; padding: 10px; margin: 10px 0; background: #f8f9fa; border-radius: 5px; text-decoration: none; color: #007bff; }
+        .test-link:hover { background: #e9ecef; }
+        .info { background: #d1ecf1; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .success { background: #d4edda; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        code { background: #f8f9fa; padding: 2px 5px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>🧪 React SPA URL Routing Test</h1>
+    
+    <div class="info">
+        <h3>How to Test:</h3>
+        <ol>
+            <li>Deploy your dist folder to your server</li>
+            <li>Visit your domain: <code>https://worldcancerday-ipca.intechify.in</code></li>
+            <li>Try these URLs directly in the browser address bar:</li>
+        </ol>
+    </div>
+
+    <h3>🔗 Test URLs (try accessing directly):</h3>
+    <a href="/admin" class="test-link">➡️ https://worldcancerday-ipca.intechify.in/admin</a>
+    <a href="/admin/dashboard" class="test-link">➡️ https://worldcancerday-ipca.intechify.in/admin/dashboard</a>
+    <a href="/admin/templates" class="test-link">➡️ https://worldcancerday-ipca.intechify.in/admin/templates</a>
+    <a href="/admin/quotes" class="test-link">➡️ https://worldcancerday-ipca.intechify.in/admin/quotes</a>
+    <a href="/mr" class="test-link">➡️ https://worldcancerday-ipca.intechify.in/mr</a>
+    <a href="/mr/dashboard" class="test-link">➡️ https://worldcancerday-ipca.intechify.in/mr/dashboard</a>
+    <a href="/any/random/route" class="test-link">➡️ https://worldcancerday-ipca.intechify.in/any/random/route</a>
+
+    <div class="success">
+        <h3>✅ Expected Behavior:</h3>
+        <ul>
+            <li>All URLs should load your React app (not show 404)</li>
+            <li>React Router will handle the routing internally</li>
+            <li>Static assets (CSS, JS, images) should load normally</li>
+            <li>Browser refresh on any route should work</li>
+        </ul>
+    </div>
+
+    <h3>📄 .htaccess Configuration Applied:</h3>
+    <ul>
+        <li>✅ URL Rewriting for SPA routing</li>
+        <li>✅ Static asset serving</li>
+        <li>✅ GZIP compression</li>
+        <li>✅ Caching headers</li>
+        <li>✅ Security headers</li>
+        <li>✅ Error handling (404 → index.html)</li>
+    </ul>
+
+    <div class="info">
+        <h3>🔧 What the .htaccess does:</h3>
+        <pre><code># Main rule that fixes React Router 404s:
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(?!.*\.(js|css|png|jpg|...)$).*$ /index.html [L]
+
+# This means: If it's not a file and not a directory,
+# and not a static asset, serve index.html instead</code></pre>
+    </div>
+
+    <script>
+        // Display current URL info
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUrl = window.location.href;
+            const currentPath = window.location.pathname;
+            
+            const urlInfo = document.createElement('div');
+            urlInfo.innerHTML = `
+                <div class="info">
+                    <h3>📍 Current Page Info:</h3>
+                    <p><strong>Full URL:</strong> ${currentUrl}</p>
+                    <p><strong>Path:</strong> ${currentPath}</p>
+                    <p><strong>Status:</strong> ${currentPath === '/test-routing.html' ? 'Test page loaded correctly' : 'React route loaded correctly'}</p>
+                </div>
+            `;
+            document.body.appendChild(urlInfo);
+        });
+    </script>
+</body>
+</html>
